@@ -11,6 +11,12 @@ module.exports = {
     },
     {
       type: 'input',
+      when (params) { return params.fileScope === 'local' },
+      name: 'path',
+      message: 'Model path:'
+    },    
+    {
+      type: 'input',
       name: 'name',
       message: 'Model name:'
     },

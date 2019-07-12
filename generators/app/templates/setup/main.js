@@ -1,5 +1,6 @@
 import '../main.scss'
-import {View} from 'backbone.marionette'
+import './components'
+
 <%- header %>
 
 if ('serviceWorker' in navigator) {

@@ -32,24 +32,6 @@ function concatHeaderBody (memo, item) {
   return memo
 }
 
-const rendererSetupMap = {
-  snabbdom: {
-    header: `import createRenderer from 'marionette.renderers/snabbdom'`,
-    body: `
-const renderer = createRenderer([
-  require('snabbdom/modules/attributes').default,
-  require('snabbdom/modules/eventlisteners').default,  
-  require('snabbdom/modules/props').default,
-  require('snabbdom/modules/class').default,  
-  require('snabbdom/modules/style').default,
-  require('snabbdom/modules/dataset').default
-])
-
-View.setRenderer(renderer)
-    `
-  }
-}
-
 class ConfigBuilder {
   constructor (generator) {
     this.requirements = []
@@ -64,14 +46,8 @@ class ConfigBuilder {
     return this.requirements.indexOf(requirement) !== -1
   }
 
-  getSetupDef (defaultRenderer) {
-    let setupDef = { header: '', body: '' }
-    if (defaultRenderer) {
-      setupDef = rendererSetupMap[defaultRenderer] || {
-        header: `import renderer from 'marionette.renderers/${defaultRenderer}'`,
-        body: 'View.setRenderer(renderer)'
-      }
-    }
+  getSetupDef () {
+    let setupDef = { header: '', body: '' }    
     return reduceField(this.requirements, 'setup', concatHeaderBody, setupDef)
   }
 
@@ -97,26 +73,6 @@ class ConfigBuilder {
       return memo
     }, {require: '', body: ''})
 
-    var supportsJSX = reduceField(this.requirements, 'supportsJSX', function (memo, supports) {
-      return memo || supports
-    }, false)
-
-    var jsFilePattern = supportsJSX ? '/\\.(js|jsx)$/' : '/\\.js$/'
-
-    var babelPlugins = reduceField(this.requirements, 'babelPlugins', function (memo, plugins) {
-      return memo.concat(plugins)
-    }, [`'transform-class-properties'`, `'transform-object-rest-spread'`, `'syntax-dynamic-import'`])
-
-    babelPlugins = babelPlugins.join(',')
-
-    var babelPresets = reduceField(this.requirements, 'babelPresets', function (memo, presets) {
-      return memo.concat(presets)
-    }, [])
-
-    babelPresets.push(`['env', envPresetConfig]`)
-
-    babelPresets = babelPresets.join(',')
-
     var babelIncludes = reduceField(this.requirements, 'babelIncludes', function (memo, includes) {
       return memo.concat(includes)
     }, ['src'])
@@ -127,7 +83,7 @@ class ConfigBuilder {
     this.generator.fs.copyTpl(
       this.generator.templatePath('webpack.config.js'),
       this.generator.destinationPath('webpack.config.js'),
-      {loaderBody: loadersDef.body, require: loadersDef.require, babelIncludes, babelPlugins, babelPresets, jsFilePattern}
+      {loaderBody: loadersDef.body, require: loadersDef.require, babelIncludes}
     )
   }
 }

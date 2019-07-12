@@ -1,20 +1,15 @@
 ---
-to: <%- path %>/route.js
+to: src/application/<%- path %>/route.js
 ---
-import { Route } from 'marionette.routing'
-import { <%- viewName %> } from './view'
+import { Route } from 'nextbone-routing'
+import { <%- componentName %> } from './<%- tagName %>'
 
-const <%- routeName %> = Route.extend({
+class <%- routeName %> extends Route {
+  static component = <%- componentName %>
+  
   activate (transition) {
-  },
 
-  viewClass: <%- viewName %>,
-
-  viewOptions () {
-    return {
-
-    }
   }
-})
+}
 
 export { <%- routeName %> }

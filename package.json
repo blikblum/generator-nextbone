@@ -1,7 +1,7 @@
 {
-  "name": "generator-mn",
-  "version": "0.5.3",
-  "description": "Marionette applications with Webpack, Bootstrap, Framework7 and custom renderers",
+  "name": "generator-nextbone",
+  "version": "0.1.0",
+  "description": "Nextbone applications with Webpack, Bootstrap, Framework7",
   "author": {
     "name": "Luiz Américo"
   },
@@ -12,8 +12,9 @@
   ],
   "main": "generators/index.js",
   "keywords": [
-    "marionette",
-    "backbone",
+    "nextbone",
+    "web-components",
+    "lit-element",
     "webpack",
     "yeoman-generator"
   ],
@@ -24,8 +25,6 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "jest": "^21.2.1",
-    "jest-cli": "^21.2.1",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.0"
   },
@@ -52,6 +51,6 @@
       "node": true
     }
   },
-  "repository": "blikblum/generator-mn",
+  "repository": "blikblum/generator-nextbone",
   "license": "MIT"
 }

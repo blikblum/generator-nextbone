@@ -1,83 +1,101 @@
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-var {GenerateSW} = require('workbox-webpack-plugin')
-var CleanPlugin = require('clean-webpack-plugin')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { WebpackPluginServe } = require('webpack-plugin-serve')
+const autoprefixer = require('autoprefixer')
+const argv = require('webpack-nano/argv')
 
 <%- require %>
 
-var DIST_DIR = 'dist'
-var devDevTool = 'source-map' // see https://webpack.js.org/configuration/devtool/ for options
-var prodDevTool = false
+const DIST_DIR = 'dist'
+const devDevTool = 'source-map' // see https://webpack.js.org/configuration/devtool/ for options
+const prodDevTool = false
 
-var envPresetConfig = {
-  modules: false,
-  targets: {
-    browsers: [
-      'ie 11'
-    ]
-  }
-}
-
-var plugins = [
+const plugins = [
   new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, 'src/index.html')
-  })
+    template: path.resolve(__dirname, 'src/index.html'),
+  }),
 ]
 
-module.exports = function (env) {
-  var isProd = env.mode === 'production'
-  
-  if (isProd) {
-    plugins.push(new CleanPlugin([DIST_DIR + '/*.*']))
-    plugins.push(new GenerateSW({
-      swDest: path.join('sw.js')
-    }))
-    plugins.push(new MiniCSSExtractPlugin({
+const { mode = 'production' } = argv
+
+const isProd = mode === 'production'
+
+const entry = ['./src/main.js']
+
+if (isProd) {
+  plugins.push(new CleanWebpackPlugin())
+  plugins.push(
+    new GenerateSW({
+      swDest: path.join('sw.js'),
+    }),
+  )
+  plugins.push(
+    new MiniCSSExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '[name].css',
-      chunkFilename: '[id].css'
-    }))
-  }
+      chunkFilename: '[id].css',
+    }),
+  )
+} else {
+  // dev
+  plugins.push(
+    new WebpackPluginServe({
+      host: 'localhost',
+      port: '8080',
+      static: path.resolve(__dirname, DIST_DIR),      
+      liveReload: true,
+      hmr: false,
+    }),
+  )
 
-  return {
-    entry: './src/main.js',
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, DIST_DIR)
-    },
-    mode: isProd ? 'production' : 'development',    
-    module: {
-      rules: [{
-        test: <%- jsFilePattern %>,
-        include: [<%- babelIncludes %>],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [<%- babelPresets %>],
-            plugins: [<%- babelPlugins %>]
-          }
-        }]
-    }, {
-      test: /\.css$/,
-      use: [
-        isProd ? MiniCSSExtractPlugin.loader : 'style-loader',
-        'css-loader'
-      ]
-    }, {
-      test: /\.(sass|scss)$/,
-      use: [
-        isProd ? MiniCSSExtractPlugin.loader : 'style-loader', 
-        'css-loader', 
-        'sass-loader'
-      ]
-     }<%- loaderBody %>]
-    },
-    resolve: {
-      modules: [path.resolve(__dirname, './src/common'), 'node_modules']
-    },    
-    plugins: plugins,
-    devtool: isProd ? prodDevTool : devDevTool
-  }
+  entry.push('webpack-plugin-serve/client')
+}
+
+module.exports = {
+  entry,
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, DIST_DIR),
+  },
+  mode,
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        include: [path.resolve('src')],
+        use: [{ loader: 'babel-loader' }],
+      },
+      {
+        test: /\.css$/,
+        use: [isProd ? MiniCSSExtractPlugin.loader : 'style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          isProd ? MiniCSSExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              sourceMap: isProd,
+              plugins: [autoprefixer()],
+            },
+          },
+          'sass-loader',
+        ],
+      }
+      <%- loaderBody %>
+    ],
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, './src/common'), 'node_modules'],
+  },
+  plugins: plugins,
+  devtool: isProd ? prodDevTool : devDevTool,
+  watch: !isProd,
 }

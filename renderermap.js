@@ -1,4 +1,4 @@
 module.exports = {
-  'superviews': 'idom',
+  superviews: 'idom',
   'incremental-bars': 'idom'
 }

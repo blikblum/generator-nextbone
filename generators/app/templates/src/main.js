@@ -1,10 +1,26 @@
 import './setup/main'
-import {Application} from 'backbone.marionette'
-import IndexView from './index/view'
+import { Router } from 'nextbone-routing'
+import { ApplicationRoute } from './application/route'
+import { IndexRoute } from './index/route'
 
-let App = Application.extend({
-  region: '#main-view'
+const router = new Router({ 
+  outlet: '#main-view', 
+  log: true, 
+  logError: true 
 })
 
-let app = new App()
-app.getRegion().show(new IndexView())
+router.map(function(route) {  
+  route('app', { path: '/', class: ApplicationRoute, abstract: true }, () => {
+    route('index', { path: '', class: IndexRoute })    
+  })
+})
+
+router.on('transition:error', (transition, err) => {
+  console.error(err)
+})
+
+router.on('before:activate', (transition, route) => {
+  // do some authentication
+})
+
+router.listen()

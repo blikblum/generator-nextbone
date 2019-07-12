@@ -12,7 +12,7 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      message: 'View name:'
+      message: 'Component name:'
     }])
   }
 }

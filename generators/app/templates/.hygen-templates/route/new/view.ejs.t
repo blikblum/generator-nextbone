@@ -1,16 +1,18 @@
 ---
-to: <%- path %>/view.js
+to: src/application/<%- path %>/<%- tagName %>.js
 ---
-import { View } from 'backbone.marionette'
+import { Component, html } from 'component'
 
-const <%- viewName %> = View.extend({
-  template: function () {
-    return (
-      <div className='row'>
+class <%- componentName %> extends Component {
+  render () {
+    return html `
+      <div class="row">
         Hello!
       </div>
-    )
+    `
   }
-})
+}
 
-export { <%- viewName %> }
+customElements.define('<%- tagName %>', <%- componentName %>)
+
+export { <%- componentName %> }
