@@ -1,15 +1,29 @@
-const camelize = require('../../_utils/camelize')
+const { camelize, getRootDirectories } = require('../../utils')
+const { join } = require('path')
 
 module.exports = {
   prompt: ({ inquirer, args }) => {
     if (args.path && args.viewName && args.routeName) {
       return Promise.resolve({ allow: true })
     }
+    let currentScope
+
     return inquirer.prompt([
+      {
+        type: 'list',
+        name: 'scope',
+        message: 'Scope:',
+        choices() {
+          return getRootDirectories()
+        },
+      },
       {
         type: 'input',
         name: 'path',
-        message: 'Route path (relative to src/application):',
+        message({ scope }) {
+          currentScope = scope
+          return `Path (relative to src/${scope})`
+        },
       },
       {
         type: 'input',

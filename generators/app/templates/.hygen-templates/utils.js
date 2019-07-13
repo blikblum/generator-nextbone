@@ -1,4 +1,17 @@
-function camelize (text, separator) {
+const { lstatSync, readdirSync } = require('fs')
+const { join } = require('path')
+
+const knownDirectories = ['common', 'setup']
+
+const isRootDirectory = source => {
+  return lstatSync(join('src', source)).isDirectory() && !knownDirectories.includes(source)
+}
+
+const getRootDirectories = () => {
+  return readdirSync('src').filter(isRootDirectory)
+}
+
+function camelize(text, separator) {
   // Assume separator is _ if no one has been provided.
   if (typeof separator === 'undefined') {
     separator = '_'
@@ -18,4 +31,7 @@ function camelize (text, separator) {
   return result
 }
 
-module.exports = camelize
+module.exports = {
+  camelize,
+  getRootDirectories,
+}

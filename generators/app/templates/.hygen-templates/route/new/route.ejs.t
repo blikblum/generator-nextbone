@@ -1,11 +1,11 @@
 ---
-to: src/application/<%- path %>/route.js
+to: src/application/<%- path %>/<%- routeName %>.js
 ---
 import { Route } from 'nextbone-routing'
-import { <%- componentName %> } from './<%- tagName %>'
+import './<%- tagName %>'
 
 class <%- routeName %> extends Route {
-  static component = <%- componentName %>
+  static component = '<%- tagName %>'
   
   activate (transition) {
 

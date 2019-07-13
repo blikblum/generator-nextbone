@@ -1,9 +1,9 @@
 ---
-to: "<%= fileScope === 'global' ? h.rootDir() + '/src/common/components/' + h.inflection.transform(name, ['underscore', 'dasherize']).replace('-view', '') : h.inflection.transform(name, ['underscore', 'dasherize'])%>.js"
+to: <%- path%><%- tagName %>.js
 ---
-import { Component, html } from 'basecomponent'
+import { Component, html } from 'component'
 
-class <%- name %> extends Component {
+class <%- componentName %> extends Component {
   render () {
     return html `
       <div class="row">
@@ -11,6 +11,8 @@ class <%- name %> extends Component {
       </div>
     `
   }
-})
+}
 
-export { <%- name %> }
+customElements.define('<%- tagName %>', <%- componentName %>)
+
+export { <%- componentName %> }
