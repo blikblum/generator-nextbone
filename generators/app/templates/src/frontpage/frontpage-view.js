@@ -26,21 +26,12 @@ class FrontPageView extends Component {
     return html`
       <style>
         frontpage-view {
-          display: block;
-          background-color: #f5f5f5;
-          height: 100vh;
-        }
-
-        .container-signin {
           display: flex;
           align-items: center;
           height: 100%;
           padding-top: 40px;
           padding-bottom: 40px;
-        }
-
-        .login-error {
-          background-color: red;
+          background-color: #f5f5f5;
         }
 
         .form-signin {
@@ -74,41 +65,40 @@ class FrontPageView extends Component {
         }
       </style>
 
-      <div class="container-signin text-center">
-        <form class="form-signin" @submit=${this.formSubmit}>
-          ${this.loginError
-            ? html`
-                <div class="login-error">${this.loginError}</div>
-              `
-            : ''}
-          <h1>My App</h1>
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label for="inputEmail" class="sr-only">Email address</label>
-          <input
-            type="email"
-            id="inputEmail"
-            class="form-control"
-            name="email"
-            placeholder="Email address"
-            autofocus
-            .value=${this.model.get('email') || null}
-          />
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input
-            type="password"
-            id="inputPassword"
-            class="form-control"
-            name="password"
-            placeholder="Password"
-            .value=${this.model.get('password') || null}
-          />
-          <div class="checkbox mb-3">
-            <label> <input type="checkbox" value="remember-me" /> Remember me </label>
-          </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
-        </form>
-      </div>
+      <form class="form-signin text-center" @submit=${this.formSubmit}>
+        ${this.loginError
+          ? html`
+              <div class="alert alert-danger" role="alert">${this.loginError}</div>
+            `
+          : ''}
+        <h1>My App</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div>Email: jon@hotmail.com Password: 123</div>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="inputEmail"
+          class="form-control"
+          name="email"
+          placeholder="Email address"
+          autofocus
+          .value=${this.model.get('email') || null}
+        />
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input
+          type="password"
+          id="inputPassword"
+          class="form-control"
+          name="password"
+          placeholder="Password"
+          .value=${this.model.get('password') || null}
+        />
+        <div class="checkbox mb-3">
+          <label> <input name="remember" type="checkbox" value="remember-me" /> Remember me </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+      </form>
     `
   }
 }

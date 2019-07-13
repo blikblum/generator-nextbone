@@ -1,9 +1,9 @@
 import { Route, elEvent } from 'nextbone-routing'
-import { FrontPageView } from './frontpage-view'
 import { sessionService } from 'services/session'
+import './frontpage-view'
 
 class FrontPageRoute extends Route {
-  static component = FrontPageView
+  static component = 'frontpage-view'
 
   activate() {
     this.listenTo(sessionService, 'login', this.onLogin)

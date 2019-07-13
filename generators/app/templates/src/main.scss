@@ -1,10 +1,9 @@
-
-
-@import "~bootstrap/scss/bootstrap";
-$fa-font-path: "~font-awesome/fonts";
+@import '~bootstrap/scss/bootstrap';
+$fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/font-awesome.scss';
 
-
-
-
 // your styles here
+
+html, body, #main-view {
+  height: 100%;
+}
