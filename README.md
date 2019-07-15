@@ -36,16 +36,19 @@ The generator will ask for some options:
 ##### CSS/UI framework
   * none
   * Bootstrap 4 - with font awesome
-  * Framework7 v2
+  * Framework7 v2 (Coming soon)
 
 ##### Nextbone plugins
   * nextbone-modals
   * nextbone-radio
   
-
 ##### Extra libraries 
   * bottlejs (dependency injection micro library)
-  * hygen templates for creating model, view, route (needs hygen installed globally)
+  * hygen templates (needs hygen installed globally):
+    * `hygen model new` - creates a Model and Collection descendant
+    * `hygen component new` - creates a web component
+    * `hygen route new` - creates a route with associated component
+
 
 ### Build the application
 
