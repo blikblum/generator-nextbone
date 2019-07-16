@@ -4,12 +4,14 @@ class SessionService extends Events {
   isAuthenticated = false
 
   login({ email, password }) {
-    if (email === 'jon@hotmail.com' && password === '123') {
-      this.isAuthenticated = true
-      this.trigger('login')
-    } else {
-      this.trigger('login:error', 'Invalid email or password')
-    }
+    setTimeout(() => {
+      if (email === 'jon@hotmail.com' && password === '123') {
+        this.isAuthenticated = true
+        this.trigger('login')
+      } else {
+        this.trigger('login:error', 'Invalid email or password')
+      }
+    }, 600)
   }
 
   logout() {

@@ -15,15 +15,18 @@ class FrontPageRoute extends Route {
   }
 
   onLogin() {
+    this.el.isLoading = false
     this.$router.transitionTo('application')
   }
 
   onLoginError(error) {
+    this.el.isLoading = false
     this.el.loginError = error
   }
 
   @elEvent('login:request', { dom: false })
   onLoginRequest(data) {
+    this.el.isLoading = true
     sessionService.login(data)
   }
 }

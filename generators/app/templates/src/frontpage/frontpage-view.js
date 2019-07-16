@@ -10,6 +10,9 @@ class FrontPageView extends Component {
   @property()
   loginError
 
+  @property()
+  isLoading
+
   @event('input', 'input')
   oninput() {
     // reset error state on input
@@ -96,7 +99,18 @@ class FrontPageView extends Component {
         <div class="checkbox mb-3">
           <label> <input name="remember" type="checkbox" value="remember-me" /> Remember me </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ?disabled=${this.isLoading}>
+          ${this.isLoading
+            ? html`
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Loading...
+              `
+            : 'Sign in'}
+        </button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
       </form>
     `
