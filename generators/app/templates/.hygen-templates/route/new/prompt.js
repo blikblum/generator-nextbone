@@ -1,16 +1,14 @@
 const { camelize, getRootDirectories } = require('../../utils')
-const { join } = require('path')
 
 module.exports = {
-  prompt: ({ inquirer, args }) => {
+  prompt: ({ prompter, args }) => {
     if (args.path && args.viewName && args.routeName) {
       return Promise.resolve({ allow: true })
     }
-    let currentScope
 
-    return inquirer.prompt([
+    return prompter.prompt([
       {
-        type: 'list',
+        type: 'select',
         name: 'scope',
         message: 'Scope:',
         choices() {
@@ -20,33 +18,32 @@ module.exports = {
       {
         type: 'input',
         name: 'path',
-        message({ scope }) {
-          currentScope = scope
-          return `Path (relative to src/${scope})`
+        message({ answers }) {
+          return `Path (relative to src/${answers.scope})`
         },
       },
       {
         type: 'input',
         name: 'routeName',
         message: 'Route name:',
-        default({ path }) {
-          return camelize(path, '/') + 'Route'
+        initial() {
+          return camelize(this.state.answers.path, '/') + 'Route'
         },
       },
       {
         type: 'input',
         name: 'tagName',
         message: 'Element Tag:',
-        default({ path }) {
-          return path.replace('/', '-') + '-view'
+        initial() {
+          return this.state.answers.path.replace('/', '-') + '-view'
         },
       },
       {
         type: 'input',
         name: 'componentName',
         message: 'Component name:',
-        default({ tagName }) {
-          return camelize(tagName, '-')
+        initial() {
+          return camelize(this.state.answers.tagName, '-')
         },
       },
     ])

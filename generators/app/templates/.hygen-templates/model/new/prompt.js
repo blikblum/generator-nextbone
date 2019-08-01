@@ -1,32 +1,36 @@
 module.exports = {
-  prompt: ({ inquirer, args }) => {
+  prompt: ({ prompter, args }) => {
     if (args.name && typeof args.collection === 'string') {
       return Promise.resolve({ allow: true })
     }
-    return inquirer.prompt([{
-      type: 'list',
-      name: 'fileScope',
-      message: 'Scope:',
-      choices: ['local', 'global']
-    },
-    {
-      type: 'input',
-      when (params) { return params.fileScope === 'local' },
-      name: 'path',
-      message: 'Model path:'
-    },    
-    {
-      type: 'input',
-      name: 'name',
-      message: 'Model name:'
-    },
-    {
-      type: 'input',
-      name: 'collection',
-      message: 'Collection name:',
-      default ({name}) {
-        return name + 's'
-      }
-    }])
-  }
+    return prompter.prompt([
+      {
+        type: 'select',
+        name: 'fileScope',
+        message: 'Scope:',
+        choices: ['local', 'global'],
+      },
+      {
+        type: 'input',
+        skip() {
+          return this.state.answers.fileScope === 'global'
+        },
+        name: 'path',
+        message: 'Model path:',
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Model name:',
+      },
+      {
+        type: 'input',
+        name: 'collection',
+        message: 'Collection name:',
+        initial() {
+          return this.state.answers.name + 's'
+        },
+      },
+    ])
+  },
 }
