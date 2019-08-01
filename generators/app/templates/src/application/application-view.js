@@ -1,6 +1,8 @@
 import { Component, html } from 'component'
 import './application-view.scss'
+import { routerLinks } from 'nextbone-routing'
 
+@routerLinks
 class ApplicationView extends Component {
   static outlet = 'main'
 
@@ -25,17 +27,17 @@ class ApplicationView extends Component {
         <div class="row">
           <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-              <ul class="nav flex-column">
+              <ul class="nav flex-column" routerlinks>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">
+                  <a route="dashboard" class="nav-link">
                     <i class="fa fa-home"></i>
-                    Dashboard <span class="sr-only">(current)</span>
+                    Dashboard
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a route="notifications" class="nav-link">
                     <i class="fa fa-file"></i>
-                    Orders
+                    Notifications
                   </a>
                 </li>
                 <li class="nav-item">

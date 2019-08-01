@@ -1,0 +1,16 @@
+.flashes {
+  &__container {
+    width: 100%;
+    top: 0;
+    z-index: 1031; /* Max Z-Index in Fixed Nav Menu is 1030*/
+    position: fixed;
+  }
+
+  &__alert {
+    margin-bottom: 2px;
+  }
+
+  &__alert:first-child {
+    margin-top: 20px;
+  }
+}
