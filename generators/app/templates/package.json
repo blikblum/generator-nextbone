@@ -12,6 +12,7 @@
     "chart.js": "^2.8.0",
     "lit-element": "^2.2.0",
     "nextbone": "^0.12.0",
+    "nextbone-radio": "^0.2.0",
     "nextbone-routing": "^0.9.0",
     "underscore": "~1.8.3"
   },

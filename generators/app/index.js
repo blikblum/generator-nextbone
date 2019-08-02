@@ -49,7 +49,7 @@ module.exports = class extends Generator {
         type: 'checkbox',
         name: 'nextbone-libraries',
         message: 'Nextbone libraries',
-        choices: [{ name: 'nextbone-radio' }, { name: 'nextbone-modals' }]
+        choices: [{ name: 'nextbone-modals' }]
       },
       {
         type: 'checkbox',
