@@ -1,6 +1,6 @@
 {
   "name": "generator-nextbone",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Nextbone applications with Webpack, Bootstrap, Framework7",
   "author": {
     "name": "Luiz Américo"
