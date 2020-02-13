@@ -22,24 +22,24 @@ class SalesChart extends Component {
             backgroundColor: 'transparent',
             borderColor: '#007bff',
             borderWidth: 4,
-            pointBackgroundColor: '#007bff',
-          },
-        ],
+            pointBackgroundColor: '#007bff'
+          }
+        ]
       },
       options: {
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: false,
-              },
-            },
-          ],
+                beginAtZero: false
+              }
+            }
+          ]
         },
         legend: {
-          display: false,
-        },
-      },
+          display: false
+        }
+      }
     })
   }
 

@@ -40,7 +40,7 @@ module.exports = class extends Generator {
         name: 'css',
         message: 'Select a CSS/UI framework',
         choices: [
-          { name: 'None', value: '', short: 'No CSS/UI framework' },
+          { name: 'None', value: 'none', short: 'No CSS/UI framework' },
           { name: 'Bootstrap 4', value: 'bootstrap4', short: 'Bootstrap v4' },
           { name: 'Framework7', value: 'framework7', short: 'Framework7 mobile framework' }
         ]
@@ -89,7 +89,7 @@ module.exports = class extends Generator {
     this.builder.savePackageFile()
     this.builder.saveWebpackConfigFile()
 
-    this.fs.copy(this.templatePath('src'), this.destinationPath('src'))
+    this.fs.copy(this.templatePath(`src/${this.props.css}`), this.destinationPath('src'))
 
     this.fs.copy(
       this.templatePath('common/component.js'),
@@ -97,7 +97,7 @@ module.exports = class extends Generator {
     )
 
     if (this.builder.hasRequirement('hygen')) {
-      this.fs.copy(this.templatePath('.hygen.js'), this.destinationPath('.hygen.js'))
+      this.fs.copy(this.templatePath('_hygen.js'), this.destinationPath('.hygen.js'))
       this.fs.copy(this.templatePath('.hygen-templates'), this.destinationPath('.hygen-templates'))
     }
 
@@ -119,15 +119,15 @@ module.exports = class extends Generator {
       setupDef
     )
     this.fs.copyTpl(this.templatePath('main.scss'), this.destinationPath('src/main.scss'), sassDef)
-    this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'))
-    this.fs.copy(this.templatePath('jsconfig.json'), this.destinationPath('jsconfig.json'))
-    this.fs.copy(this.templatePath('babel.config.js'), this.destinationPath('babel.config.js'))
+    this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'))
+    this.fs.copy(this.templatePath('_jsconfig.json'), this.destinationPath('jsconfig.json'))
+    this.fs.copy(this.templatePath('_babel.config.js'), this.destinationPath('babel.config.js'))
     this.fs.copy(
-      this.templatePath('prettier.config.js'),
+      this.templatePath('_prettier.config.js'),
       this.destinationPath('prettier.config.js')
     )
-    this.fs.copy(this.templatePath('.eslintrc.js'), this.destinationPath('.eslintrc.js'))
-    this.fs.copy(this.templatePath('.browserslistrc'), this.destinationPath('.browserslistrc'))
+    this.fs.copy(this.templatePath('_eslintrc.js'), this.destinationPath('.eslintrc.js'))
+    this.fs.copy(this.templatePath('_browserslistrc'), this.destinationPath('.browserslistrc'))
   }
 
   install() {

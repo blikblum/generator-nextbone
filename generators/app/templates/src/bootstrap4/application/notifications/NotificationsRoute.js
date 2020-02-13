@@ -3,10 +3,8 @@ import './notifications-view'
 
 class NotificationsRoute extends Route {
   static component = 'notifications-view'
-  
-  activate (transition) {
 
-  }
+  activate(transition) {}
 }
 
 export { NotificationsRoute }

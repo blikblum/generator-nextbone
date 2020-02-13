@@ -15,7 +15,7 @@ import './application/dashboard/dashboard-view'
 const router = new Router({
   outlet: '#main-view',
   log: true,
-  logError: true,
+  logError: true
 })
 
 router.map(function(route) {
@@ -34,13 +34,13 @@ router.on('all', (...args) => {
 })
 
 flashesService.setup({
-  container: '.application__flashes',
+  container: '.application__flashes'
 })
 
 router.on('transition:error', (transition, err) => {
   flashesService.add({
     type: 'danger',
-    title: `Transition Error: ${err}`,
+    title: `Transition Error: ${err}`
   })
 })
 

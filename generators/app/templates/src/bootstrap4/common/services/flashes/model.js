@@ -5,7 +5,7 @@ export class Flash extends Model {
   static defaults = {
     timeout: false,
     dismissible: true,
-    clearOnRoute: true,
+    clearOnRoute: true
   }
 
   initialize() {

@@ -40,7 +40,7 @@ class DataTable extends Component {
   @event('click', 'tr.item-row')
   onRowClick(e) {
     this.dispatchEvent(
-      new CustomEvent('row-select', { bubbles: true, detail: { model: e.selectorTarget.model } }),
+      new CustomEvent('row-select', { bubbles: true, detail: { model: e.selectorTarget.model } })
     )
   }
 
@@ -51,12 +51,12 @@ class DataTable extends Component {
       'table-bordered': this.bordered,
       'table-borderless': this.borderless,
       'table-striped': this.striped,
-      'table-sm': this.sm,
+      'table-sm': this.sm
     }
 
     const theadClasses = {
       'thead-dark': this.theadDark,
-      'thead-light': this.theadLight,
+      'thead-light': this.theadLight
     }
 
     return html`
@@ -75,7 +75,7 @@ class DataTable extends Component {
             return html`
               <tr
                 class="item-row ${classMap({
-                  'table-active': model === this.selected,
+                  'table-active': model === this.selected
                 })}"
                 .model=${model}
               >

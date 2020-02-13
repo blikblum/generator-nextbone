@@ -35,7 +35,7 @@ class DashboardView extends Component {
             { title: '#', attr: 'id' },
             { title: 'Maker', attr: 'maker' },
             { title: 'Model', attr: 'model' },
-            { title: 'Sells', attr: 'sell' },
+            { title: 'Sells', attr: 'sell' }
           ]}
           .collection=${sells}
         ></data-table>

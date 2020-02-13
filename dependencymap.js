@@ -4,7 +4,15 @@ module.exports = {
   },
 
   bootstrap4: {
-    dependencies: ['bootstrap4', 'popper.js', 'font-awesome', 'jquery'],
+    dependencies: [
+      'bootstrap4',
+      'popper.js',
+      'font-awesome',
+      'jquery',
+      'chart.js',
+      'nextbone-routing',
+      'nextbone-radio'
+    ],
     devDependencies: ['url-loader', 'file-loader'],
     loaders: [
       {
@@ -33,10 +41,25 @@ $fa-font-path: "~font-awesome/fonts";
   },
 
   framework7: {
-    dependencies: ['framework7', 'nextbone-f7'],
-    devDependencies: ['file-loader'],
+    dependencies: ['framework7', 'wc-f7'],
+    devDependencies: ['url-loader', 'file-loader'],
     babelIncludes: ['node_modules/framework7', 'node_modules/dom7', 'node_modules/template7'],
     loaders: [
+      {
+        body: `{
+      test: /\\.(woff|woff2)$/,
+      use: "url-loader?limit=10000&mimetype=application/font-woff"
+    }, {
+      test: /\\.ttf$/,
+      use: "url-loader?limit=10000&mimetype=application/octet-stream"
+    }, {
+      test: /\\.eot$/,
+      use: "file-loader"
+    }, {
+      test: /\\.svg$/,
+      use: "url-loader?limit=10000&mimetype=image/svg+xml"
+    }`
+      },
       {
         body: `{
         test: /\\.png$/,
@@ -45,11 +68,12 @@ $fa-font-path: "~font-awesome/fonts";
       }
     ],
     setup: {
-      header: `import 'framework7/dist/css/framework7.css'
-import Framework7 from 'framework7'
-import Popup from 'framework7/dist/components/popup/popup.js'
-`,
-      body: `Framework7.use([Popup])`
+      header: `import 'framework7/css/framework7.bundle.css'
+      // Import Icons and App Custom Styles
+import '../styles/icons.css'
+import '../styles/app.css'
+
+`
     }
   }
 }

@@ -6,7 +6,7 @@ class NotificationsView extends Component {
     const el = e.target
     flashesService.add({
       type: el.dataset.type,
-      title: el.textContent.trim(),
+      title: el.textContent.trim()
     })
   }
 

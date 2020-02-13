@@ -49,6 +49,7 @@ if (isProd) {
       static: path.resolve(__dirname, DIST_DIR),      
       liveReload: true,
       hmr: false,
+      open: true
     }),
   )
 
@@ -98,4 +99,7 @@ module.exports = {
   plugins: plugins,
   devtool: isProd ? prodDevTool : devDevTool,
   watch: !isProd,
+  watchOptions: {
+    ignored: /node_modules/
+  }
 }

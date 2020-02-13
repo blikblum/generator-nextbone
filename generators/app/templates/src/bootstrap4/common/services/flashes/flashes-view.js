@@ -21,7 +21,7 @@ export default class FlashesView extends Component {
                   </button>
                 `}
             </div>
-          `,
+          `
         )}
       </div>
     `
