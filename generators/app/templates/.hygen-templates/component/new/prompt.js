@@ -26,7 +26,7 @@ module.exports = {
         result(path) {
           const scope = this.state.answers.scope
           const basePath = scope === 'global' ? 'common/components' : scope
-          return normalize(`src/${basePath}/${path}`).replace(/\\/gm, '/')
+          return normalize(`src/${basePath}/${path}/`).replace(/\\/gm, '/')
         },
       },
       {
