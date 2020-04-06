@@ -1,8 +1,8 @@
 import { Component, html } from 'component'
 import './application-view.scss'
-import { routerLinks } from 'nextbone-routing'
+import { withRouterLinks } from 'nextbone-routing'
 
-@routerLinks
+@withRouterLinks
 class ApplicationView extends Component {
   static outlet = 'main'
 

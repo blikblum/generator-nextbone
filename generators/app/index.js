@@ -23,17 +23,17 @@ module.exports = class extends Generator {
         name: 'name',
         default: '',
         message: 'Application name',
-        when: function() {
+        when: function () {
           return false // disable for now
-        }
+        },
       },
       {
         name: 'description',
         default: '',
         message: 'Application description',
-        when: function() {
+        when: function () {
           return false // disable for now
-        }
+        },
       },
       {
         type: 'list',
@@ -42,34 +42,34 @@ module.exports = class extends Generator {
         choices: [
           { name: 'None', value: 'none', short: 'No CSS/UI framework' },
           { name: 'Bootstrap 4', value: 'bootstrap4', short: 'Bootstrap v4' },
-          { name: 'Framework7', value: 'framework7', short: 'Framework7 mobile framework' }
-        ]
+          { name: 'Framework7', value: 'framework7', short: 'Framework7 mobile framework' },
+        ],
       },
       {
         type: 'checkbox',
         name: 'nextbone-libraries',
         message: 'Nextbone libraries',
-        choices: [{ name: 'nextbone-modals' }]
+        choices: [{ name: 'nextbone-modals' }],
       },
       {
         type: 'checkbox',
         name: 'extra',
         message: 'Extra features',
         choices: [
-          { name: 'bottlejs', short: 'Dependency injection library' },
-          { name: 'hygen', short: 'Code generator (preconfigured for model, view, route)' }
-        ]
-      }
+          { name: 'next-service', short: 'Dependency injection library' },
+          { name: 'hygen', short: 'Code generator (preconfigured for model, view, route)' },
+        ],
+      },
     ]
 
-    return this.prompt(prompts).then(props => {
+    return this.prompt(prompts).then((props) => {
       // To access props later use this.props.someAnswer;
       this.DEVMODE && this.log('props', JSON.stringify(props))
 
       const addRequirement = this.builder.addRequirement.bind(this.builder)
       const requirementProps = ['nextbone-libraries', 'extra', 'css']
 
-      requirementProps.forEach(propName => {
+      requirementProps.forEach((propName) => {
         const propValue = props[propName]
         if (Array.isArray(propValue)) {
           propValue.forEach(addRequirement)
@@ -109,6 +109,7 @@ module.exports = class extends Generator {
       )
     }
 
+    this.fs.copy(this.templatePath('setup/icons.js'), this.destinationPath('src/setup/icons.js'))
     this.fs.copy(
       this.templatePath('setup/components.js'),
       this.destinationPath('src/setup/components.js')
@@ -135,7 +136,7 @@ module.exports = class extends Generator {
     this.installDependencies({
       yarn: isYarnAvailable,
       npm: !isYarnAvailable,
-      bower: false
+      bower: false,
     })
   }
 }

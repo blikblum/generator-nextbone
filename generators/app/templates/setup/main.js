@@ -1,5 +1,6 @@
 import '../main.scss'
 import './components'
+import './icons'
 
 <%- header %>
 

@@ -1,8 +1,8 @@
 import { Component, html, property } from 'component'
 import { state, Model, event } from 'nextbone'
-import { formBind } from 'nextbone/formbind'
+import { form } from 'nextbone/form'
 
-@formBind
+@form
 class FrontPageView extends Component {
   @state
   model = new Model()
@@ -70,9 +70,7 @@ class FrontPageView extends Component {
 
       <form class="form-signin text-center" @submit=${this.formSubmit}>
         ${this.loginError
-          ? html`
-              <div class="alert alert-danger" role="alert">${this.loginError}</div>
-            `
+          ? html` <div class="alert alert-danger" role="alert">${this.loginError}</div> `
           : ''}
         <h1>My App</h1>
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
