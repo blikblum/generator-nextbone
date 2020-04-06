@@ -101,8 +101,7 @@ module.exports = class extends Generator {
       this.fs.copy(this.templatePath('.hygen-templates'), this.destinationPath('.hygen-templates'))
     }
 
-    if (this.builder.hasRequirement('bottlejs')) {
-      this.fs.copy(this.templatePath('common/di.js'), this.destinationPath('src/common/di.js'))
+    if (this.builder.hasRequirement('next-service')) {
       this.fs.copy(
         this.templatePath('setup/services.js'),
         this.destinationPath('src/setup/services.js')

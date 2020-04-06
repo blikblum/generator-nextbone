@@ -1,5 +1,7 @@
 import { Events } from 'nextbone'
+import { service } from 'next-service'
 
+@service('sessionService')
 class SessionService extends Events {
   isAuthenticated = false
 
@@ -19,5 +21,3 @@ class SessionService extends Events {
     this.trigger('logout')
   }
 }
-
-export const sessionService = new SessionService()

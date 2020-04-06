@@ -1,12 +1,15 @@
 import { Component, html } from 'component'
-import { flashesService } from 'services/flashes'
+import { inject } from 'next-service'
 
 class NotificationsView extends Component {
+  @inject
+  flashesService
+
   displayAlert(e) {
     const el = e.target
-    flashesService.add({
+    this.flashesService.add({
       type: el.dataset.type,
-      title: el.textContent.trim()
+      title: el.textContent.trim(),
     })
   }
 

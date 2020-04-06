@@ -1,17 +1,20 @@
 import { Route, elEvent } from 'nextbone-routing'
-import { sessionService } from 'services/session'
+import { inject } from 'next-service'
 import './frontpage-view'
 
 class FrontPageRoute extends Route {
   static component = 'frontpage-view'
 
+  @inject
+  sessionService
+
   activate() {
-    this.listenTo(sessionService, 'login', this.onLogin)
-    this.listenTo(sessionService, 'login:error', this.onLoginError)
+    this.listenTo(this.sessionService, 'login', this.onLogin)
+    this.listenTo(this.sessionService, 'login:error', this.onLoginError)
   }
 
   deactivate() {
-    this.stopListening(sessionService)
+    this.stopListening(this.sessionService)
   }
 
   onLogin() {
@@ -27,7 +30,7 @@ class FrontPageRoute extends Route {
   @elEvent('login:request', { dom: false })
   onLoginRequest(data) {
     this.el.isLoading = true
-    sessionService.login(data)
+    this.sessionService.login(data)
   }
 }
 

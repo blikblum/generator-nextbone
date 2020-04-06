@@ -1,8 +1,10 @@
 import { Region } from 'nextbone/dom-utils'
 import { defineAsyncMethods } from 'nextbone/class-utils'
+import { service } from 'next-service'
 import { Flashes } from './model'
 import FlashesView from './flashes-view'
 
+@service('flashesService')
 class FlashesService {
   setup(options = {}) {
     this.container = options.container
@@ -36,5 +38,3 @@ class FlashesService {
 }
 
 defineAsyncMethods(FlashesService, ['add', 'remove'])
-
-export const flashesService = new FlashesService()

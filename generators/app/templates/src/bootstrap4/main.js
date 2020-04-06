@@ -1,8 +1,7 @@
 import './setup/main'
 import { Radio } from 'nextbone-radio'
 import { Router } from 'nextbone-routing'
-import { sessionService } from 'services/session'
-import { flashesService } from './common/services/flashes'
+import { container } from 'next-service'
 
 // route classes
 import { ApplicationRoute } from './application/ApplicationRoute'
@@ -12,13 +11,15 @@ import { NotificationsRoute } from './application/notifications/NotificationsRou
 // route views / components
 import './application/dashboard/dashboard-view'
 
+const { flashesService, sessionService } = container
+
 const router = new Router({
   outlet: '#main-view',
   log: true,
-  logError: true
+  logError: true,
 })
 
-router.map(function(route) {
+router.map(function (route) {
   route('frontpage', { path: '/', class: FrontPageRoute })
   route('application', { path: '/app', class: ApplicationRoute, abstract: true }, () => {
     route('dashboard', { path: '', component: 'dashboard-view' })
@@ -33,14 +34,16 @@ router.on('all', (...args) => {
   routerChannel.trigger(...args)
 })
 
+// configure flashes service
+
 flashesService.setup({
-  container: '.application__flashes'
+  container: '.application__flashes',
 })
 
 router.on('transition:error', (transition, err) => {
   flashesService.add({
     type: 'danger',
-    title: `Transition Error: ${err}`
+    title: `Transition Error: ${err}`,
   })
 })
 
